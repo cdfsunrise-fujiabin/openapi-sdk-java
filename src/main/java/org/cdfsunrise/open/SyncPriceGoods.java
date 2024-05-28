@@ -1,10 +1,11 @@
 package org.cdfsunrise.open;
 
+import com.alibaba.fastjson.JSON;
 import org.cdfsunrise.OkHttpHelper;
 import java.util.List;
 
-public class QueryGoodInfo {
-    public static class QueryGoodInfoResponse {
+public class SyncPriceGoods {
+    public static class SyncPriceGoodsResponse {
     	private String requestId;
     	public String GetRequestId() {
     	    return this.requestId;
@@ -38,19 +39,32 @@ public class QueryGoodInfo {
         }
     }
     
+	public static class SyncPriceGoodsReq {
+		private List<String> goodIds;
+		public List<String> GetGoodIds()
+		{
+			return this.goodIds;
+		}
+		public void SetGoodIds(List<String> goodIds)
+		{
+			this.goodIds = goodIds;
+		}
+	
+	}
+	
 
-    /*QueryGoodInfo
-     *Description: 查询商品信息工具
-     * @param: channelId string 渠道id 必填项
-     * @param: lefoxId string 商品lefoxid 必填项
-     * @return: *QueryGoodInfoResponse
+    /*SyncPriceGoods
+     *Description: 需要同步商品价格集合
+     * @param: body SyncPriceGoodsReq SyncPriceGoodsReq 必填项
+     * @return: *SyncPriceGoodsResponse
     */
-    public QueryGoodInfoResponse QueryGoodInfo(String host, String channelId, String lefoxId) throws Exception {
+    public SyncPriceGoodsResponse SyncPriceGoods(String host, SyncPriceGoodsReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	
-        String respStr = httpHelper.Get(String.format("%s%s", host, String.format("/query/good/info?channelId=%s&lefoxId=%s", channelId, lefoxId)));
+    	String bodyString = JSON.toJSONString(body);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/price/goods")), bodyString);
         
-        QueryGoodInfoResponse respEntity = new QueryGoodInfoResponse();
+        SyncPriceGoodsResponse respEntity = new SyncPriceGoodsResponse();
         respEntity.SetData(respStr);
         return respEntity;
     }

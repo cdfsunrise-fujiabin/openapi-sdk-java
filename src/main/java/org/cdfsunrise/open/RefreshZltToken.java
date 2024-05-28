@@ -3,8 +3,8 @@ package org.cdfsunrise.open;
 import org.cdfsunrise.OkHttpHelper;
 import java.util.List;
 
-public class QueryGoodInfo {
-    public static class QueryGoodInfoResponse {
+public class RefreshZltToken {
+    public static class RefreshZltTokenResponse {
     	private String requestId;
     	public String GetRequestId() {
     	    return this.requestId;
@@ -39,18 +39,17 @@ public class QueryGoodInfo {
     }
     
 
-    /*QueryGoodInfo
-     *Description: 查询商品信息工具
-     * @param: channelId string 渠道id 必填项
-     * @param: lefoxId string 商品lefoxid 必填项
-     * @return: *QueryGoodInfoResponse
+    /*RefreshZltToken
+     *Description: 更新中旅通accessToken
+     * @param: appid string appid 必填项
+     * @return: *RefreshZltTokenResponse
     */
-    public QueryGoodInfoResponse QueryGoodInfo(String host, String channelId, String lefoxId) throws Exception {
+    public RefreshZltTokenResponse RefreshZltToken(String host, String appid) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	
-        String respStr = httpHelper.Get(String.format("%s%s", host, String.format("/query/good/info?channelId=%s&lefoxId=%s", channelId, lefoxId)));
+        String respStr = httpHelper.Get(String.format("%s%s", host, String.format("/refresh/zlt/token?appid=%s", appid)));
         
-        QueryGoodInfoResponse respEntity = new QueryGoodInfoResponse();
+        RefreshZltTokenResponse respEntity = new RefreshZltTokenResponse();
         respEntity.SetData(respStr);
         return respEntity;
     }
