@@ -49,8 +49,8 @@ public class SyncPriceGoods {
 		{
 			this.goodIds = goodIds;
 		}
-	
 	}
+	
 	
 
     /*SyncPriceGoods

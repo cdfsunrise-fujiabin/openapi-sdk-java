@@ -70,7 +70,7 @@ public class OpenGoodsUpdate {
 			this.goodListInfo = goodListInfo;
 		}
 	}
-
+	
 	public static class UpdateGood {
 		private String lefoxId;
 		public String GetLefoxId()
@@ -102,7 +102,9 @@ public class OpenGoodsUpdate {
 			this.type = type;
 		}
 	}
-
+	
+	
+	
 	public static class GoodResp {
 		private String errInfo;
 		public String GetErrInfo()
@@ -133,9 +135,7 @@ public class OpenGoodsUpdate {
 		{
 			this.success = success;
 		}
-	
 	}
-	
 
     /*OpenGoodsUpdate
      *Description: 开放平台商品信息通知
@@ -144,13 +144,13 @@ public class OpenGoodsUpdate {
     */
     public OpenGoodsUpdateResponse OpenGoodsUpdate(String host, OpenGoodUpdateReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
-    	
+
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/open/goods/update")), bodyString);
 
 		OpenGoodsUpdateResponse respEntity = new OpenGoodsUpdateResponse();
 		var data = JSON.parseArray(respStr, GoodResp.class);
-        respEntity.SetData(data);
-        return respEntity;
+		respEntity.SetData(data);
+		return respEntity;
     }
 }

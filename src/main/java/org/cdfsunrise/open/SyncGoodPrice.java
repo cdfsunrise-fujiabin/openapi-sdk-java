@@ -59,6 +59,7 @@ public class SyncGoodPrice {
 		{
 			this.supplier = supplier;
 		}
+	}
 	
 	public static class GoodPriceInfo {
 		private String lefoxId;
@@ -100,10 +101,9 @@ public class SyncGoodPrice {
 		{
 			this.salePrice = salePrice;
 		}
-	
 	}
 	
-	}
+	
 	
 	public static class GoodResp {
 		private String errInfo;
@@ -135,8 +135,8 @@ public class SyncGoodPrice {
 		{
 			this.success = success;
 		}
-	
 	}
+	
 	
 
     /*SyncGoodPrice
@@ -149,7 +149,7 @@ public class SyncGoodPrice {
     	
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/good/price")), bodyString);
-        
+
         SyncGoodPriceResponse respEntity = new SyncGoodPriceResponse();
 		var data = JSON.parseArray(respStr, GoodResp.class);
         respEntity.SetData(data);
