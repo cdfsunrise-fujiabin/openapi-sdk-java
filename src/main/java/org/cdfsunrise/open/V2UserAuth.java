@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SyncPriceGoods {
-    public static class SyncPriceGoodsResponse {
+public class V2UserAuth {
+    public static class V2UserAuthResponse {
     	private String requestId;
     	public String GetRequestId() {
     	    return this.requestId;
@@ -42,34 +42,44 @@ public class SyncPriceGoods {
         }
     }
     
-	public static class SyncPriceGoodsReq {
-		private List<String> goodIds;
-		public List<String> getGoodIds()
+	public static class OpenAuthReq {
+		private String appid;
+		public String getAppid()
 		{
-			return this.goodIds;
+			return this.appid;
 		}
-		public void setGoodIds(List<String> goodIds)
+		public void setAppid(String appid)
 		{
-			this.goodIds = goodIds;
+			this.appid = appid;
+		}
+
+		private String password;
+		public String getPassword()
+		{
+			return this.password;
+		}
+		public void setPassword(String password)
+		{
+			this.password = password;
 		}
 	}
 	
 	
 
-    /*SyncPriceGoods
-     *Description: 需要同步商品价格集合
-     * @param: body SyncPriceGoodsReq SyncPriceGoodsReq 必填项
-     * @return: *SyncPriceGoodsResponse
+    /*V2UserAuth
+     *Description: 
+     * @param: body OpenAuthReq OpenAuthReq 必填项
+     * @return: *V2UserAuthResponse
     */
-    public SyncPriceGoodsResponse SyncPriceGoods(String host, String authToken, SyncPriceGoodsReq body) throws Exception {
+    public V2UserAuthResponse V2UserAuth(String host, String authToken, OpenAuthReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", authToken);
     	
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/price/goods")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v2/user/auth")), headers, bodyString);
         
-        SyncPriceGoodsResponse respEntity = new SyncPriceGoodsResponse();
+        V2UserAuthResponse respEntity = new V2UserAuthResponse();
         respEntity.SetData(respStr);
         return respEntity;
     }

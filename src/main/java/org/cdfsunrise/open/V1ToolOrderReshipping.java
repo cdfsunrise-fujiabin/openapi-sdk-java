@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SyncPriceGoods {
-    public static class SyncPriceGoodsResponse {
+public class V1ToolOrderReshipping {
+    public static class V1ToolOrderReshippingResponse {
     	private String requestId;
     	public String GetRequestId() {
     	    return this.requestId;
@@ -42,34 +42,34 @@ public class SyncPriceGoods {
         }
     }
     
-	public static class SyncPriceGoodsReq {
-		private List<String> goodIds;
-		public List<String> getGoodIds()
+	public static class ToolReShipmentReq {
+		private List<String> orderNo;
+		public List<String> getOrderNo()
 		{
-			return this.goodIds;
+			return this.orderNo;
 		}
-		public void setGoodIds(List<String> goodIds)
+		public void setOrderNo(List<String> orderNo)
 		{
-			this.goodIds = goodIds;
+			this.orderNo = orderNo;
 		}
 	}
 	
 	
 
-    /*SyncPriceGoods
-     *Description: 需要同步商品价格集合
-     * @param: body SyncPriceGoodsReq SyncPriceGoodsReq 必填项
-     * @return: *SyncPriceGoodsResponse
+    /*V1ToolOrderReshipping
+     *Description: 订单发货重推到商户
+     * @param: body ToolReShipmentReq ToolReShipmentReq 必填项
+     * @return: *V1ToolOrderReshippingResponse
     */
-    public SyncPriceGoodsResponse SyncPriceGoods(String host, String authToken, SyncPriceGoodsReq body) throws Exception {
+    public V1ToolOrderReshippingResponse V1ToolOrderReshipping(String host, String authToken, ToolReShipmentReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", authToken);
     	
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/price/goods")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/tool/order/reshipping")), headers, bodyString);
         
-        SyncPriceGoodsResponse respEntity = new SyncPriceGoodsResponse();
+        V1ToolOrderReshippingResponse respEntity = new V1ToolOrderReshippingResponse();
         respEntity.SetData(respStr);
         return respEntity;
     }

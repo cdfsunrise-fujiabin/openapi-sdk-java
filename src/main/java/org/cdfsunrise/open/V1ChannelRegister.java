@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SyncPriceGoods {
-    public static class SyncPriceGoodsResponse {
+public class V1ChannelRegister {
+    public static class V1ChannelRegisterResponse {
     	private String requestId;
     	public String GetRequestId() {
     	    return this.requestId;
@@ -42,34 +42,54 @@ public class SyncPriceGoods {
         }
     }
     
-	public static class SyncPriceGoodsReq {
-		private List<String> goodIds;
-		public List<String> getGoodIds()
+	public static class ChannelRegisterReq {
+		private String channelId;
+		public String getChannelId()
 		{
-			return this.goodIds;
+			return this.channelId;
 		}
-		public void setGoodIds(List<String> goodIds)
+		public void setChannelId(String channelId)
 		{
-			this.goodIds = goodIds;
+			this.channelId = channelId;
+		}
+
+		private String channelName;
+		public String getChannelName()
+		{
+			return this.channelName;
+		}
+		public void setChannelName(String channelName)
+		{
+			this.channelName = channelName;
+		}
+
+		private int channelType;
+		public int getChannelType()
+		{
+			return this.channelType;
+		}
+		public void setChannelType(int channelType)
+		{
+			this.channelType = channelType;
 		}
 	}
 	
 	
 
-    /*SyncPriceGoods
-     *Description: 需要同步商品价格集合
-     * @param: body SyncPriceGoodsReq SyncPriceGoodsReq 必填项
-     * @return: *SyncPriceGoodsResponse
+    /*V1ChannelRegister
+     *Description: 渠道库存注册
+     * @param: body ChannelRegisterReq ChannelRegisterReq 必填项
+     * @return: *V1ChannelRegisterResponse
     */
-    public SyncPriceGoodsResponse SyncPriceGoods(String host, String authToken, SyncPriceGoodsReq body) throws Exception {
+    public V1ChannelRegisterResponse V1ChannelRegister(String host, String authToken, ChannelRegisterReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", authToken);
     	
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/price/goods")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/channel/register")), headers, bodyString);
         
-        SyncPriceGoodsResponse respEntity = new SyncPriceGoodsResponse();
+        V1ChannelRegisterResponse respEntity = new V1ChannelRegisterResponse();
         respEntity.SetData(respStr);
         return respEntity;
     }

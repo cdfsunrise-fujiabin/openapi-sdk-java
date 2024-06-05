@@ -2,7 +2,10 @@ package org.cdfsunrise.open;
 
 import com.alibaba.fastjson.JSON;
 import org.cdfsunrise.OkHttpHelper;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class OpenGoodsUpdate {
     public static class OpenGoodsUpdateResponse {
@@ -41,31 +44,31 @@ public class OpenGoodsUpdate {
     
 	public static class OpenGoodUpdateReq {
 		private int buyType;
-		public int GetBuyType()
+		public int getBuyType()
 		{
 			return this.buyType;
 		}
-		public void SetBuyType(int buyType)
+		public void setBuyType(int buyType)
 		{
 			this.buyType = buyType;
 		}
 
 		private String channelId;
-		public String GetChannelId()
+		public String getChannelId()
 		{
 			return this.channelId;
 		}
-		public void SetChannelId(String channelId)
+		public void setChannelId(String channelId)
 		{
 			this.channelId = channelId;
 		}
 
 		private List<UpdateGood> goodListInfo;
-		public List<UpdateGood> GetGoodListInfo()
+		public List<UpdateGood> getGoodListInfo()
 		{
 			return this.goodListInfo;
 		}
-		public void SetGoodListInfo(List<UpdateGood> goodListInfo)
+		public void setGoodListInfo(List<UpdateGood> goodListInfo)
 		{
 			this.goodListInfo = goodListInfo;
 		}
@@ -73,31 +76,31 @@ public class OpenGoodsUpdate {
 	
 	public static class UpdateGood {
 		private String lefoxId;
-		public String GetLefoxId()
+		public String getLefoxId()
 		{
 			return this.lefoxId;
 		}
-		public void SetLefoxId(String lefoxId)
+		public void setLefoxId(String lefoxId)
 		{
 			this.lefoxId = lefoxId;
 		}
 
 		private int sellState;
-		public int GetSellState()
+		public int getSellState()
 		{
 			return this.sellState;
 		}
-		public void SetSellState(int sellState)
+		public void setSellState(int sellState)
 		{
 			this.sellState = sellState;
 		}
 
 		private String type;
-		public String GetType()
+		public String getType()
 		{
 			return this.type;
 		}
-		public void SetType(String type)
+		public void setType(String type)
 		{
 			this.type = type;
 		}
@@ -107,50 +110,54 @@ public class OpenGoodsUpdate {
 	
 	public static class GoodResp {
 		private String errInfo;
-		public String GetErrInfo()
+		public String getErrInfo()
 		{
 			return this.errInfo;
 		}
-		public void SetErrInfo(String errInfo)
+		public void setErrInfo(String errInfo)
 		{
 			this.errInfo = errInfo;
 		}
 
 		private String lefoxId;
-		public String GetLefoxId()
+		public String getLefoxId()
 		{
 			return this.lefoxId;
 		}
-		public void SetLefoxId(String lefoxId)
+		public void setLefoxId(String lefoxId)
 		{
 			this.lefoxId = lefoxId;
 		}
 
 		private boolean success;
-		public boolean GetSuccess()
+		public boolean getSuccess()
 		{
 			return this.success;
 		}
-		public void SetSuccess(boolean success)
+		public void setSuccess(boolean success)
 		{
 			this.success = success;
 		}
 	}
+	
+	
 
     /*OpenGoodsUpdate
      *Description: 开放平台商品信息通知
      * @param: body OpenGoodUpdateReq OpenGoodUpdateReq 必填项
      * @return: *OpenGoodsUpdateResponse
     */
-    public OpenGoodsUpdateResponse OpenGoodsUpdate(String host, OpenGoodUpdateReq body) throws Exception {
+    public OpenGoodsUpdateResponse OpenGoodsUpdate(String host, String authToken, OpenGoodUpdateReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
-
+    	Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Authorization", authToken);
+    	
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/open/goods/update")), bodyString);
-
-		OpenGoodsUpdateResponse respEntity = new OpenGoodsUpdateResponse();
-		var data = JSON.parseArray(respStr, GoodResp.class);
-		respEntity.SetData(data);
-		return respEntity;
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/open/goods/update")), headers, bodyString);
+        
+        OpenGoodsUpdateResponse respEntity = new OpenGoodsUpdateResponse();
+        var data = JSON.parseArray(respStr, GoodResp.class);
+        respEntity.SetData(data);
+        return respEntity;
     }
 }

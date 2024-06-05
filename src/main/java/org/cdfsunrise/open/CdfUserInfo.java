@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SyncPriceGoods {
-    public static class SyncPriceGoodsResponse {
+public class CdfUserInfo {
+    public static class CdfUserInfoResponse {
     	private String requestId;
     	public String GetRequestId() {
     	    return this.requestId;
@@ -42,34 +42,54 @@ public class SyncPriceGoods {
         }
     }
     
-	public static class SyncPriceGoodsReq {
-		private List<String> goodIds;
-		public List<String> getGoodIds()
+	public static class CdfUserInfoReq {
+		private String channelId;
+		public String getChannelId()
 		{
-			return this.goodIds;
+			return this.channelId;
 		}
-		public void setGoodIds(List<String> goodIds)
+		public void setChannelId(String channelId)
 		{
-			this.goodIds = goodIds;
+			this.channelId = channelId;
+		}
+
+		private String token;
+		public String getToken()
+		{
+			return this.token;
+		}
+		public void setToken(String token)
+		{
+			this.token = token;
+		}
+
+		private String userId;
+		public String getUserId()
+		{
+			return this.userId;
+		}
+		public void setUserId(String userId)
+		{
+			this.userId = userId;
 		}
 	}
 	
 	
 
-    /*SyncPriceGoods
-     *Description: 需要同步商品价格集合
-     * @param: body SyncPriceGoodsReq SyncPriceGoodsReq 必填项
-     * @return: *SyncPriceGoodsResponse
+    /*CdfUserInfo
+     *Description: sso获取用户信息
+     * @param: body CdfUserInfoReq CdfUserInfoReq 必填项
+     * @return: *CdfUserInfoResponse
     */
-    public SyncPriceGoodsResponse SyncPriceGoods(String host, String authToken, SyncPriceGoodsReq body) throws Exception {
+    public CdfUserInfoResponse CdfUserInfo(String host, String authToken, CdfUserInfoReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", authToken);
     	
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/price/goods")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/cdf/userInfo")), headers, bodyString);
         
-        SyncPriceGoodsResponse respEntity = new SyncPriceGoodsResponse();
+        CdfUserInfoResponse respEntity = new CdfUserInfoResponse();
         respEntity.SetData(respStr);
         return respEntity;
     }

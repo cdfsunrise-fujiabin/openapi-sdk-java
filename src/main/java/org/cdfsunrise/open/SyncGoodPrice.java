@@ -2,7 +2,10 @@ package org.cdfsunrise.open;
 
 import com.alibaba.fastjson.JSON;
 import org.cdfsunrise.OkHttpHelper;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SyncGoodPrice {
     public static class SyncGoodPriceResponse {
@@ -41,21 +44,21 @@ public class SyncGoodPrice {
     
 	public static class SyncGoodPriceReq {
 		private List<GoodPriceInfo> goodPriceList;
-		public List<GoodPriceInfo> GetGoodPriceList()
+		public List<GoodPriceInfo> getGoodPriceList()
 		{
 			return this.goodPriceList;
 		}
-		public void SetGoodPriceList(List<GoodPriceInfo> goodPriceList)
+		public void setGoodPriceList(List<GoodPriceInfo> goodPriceList)
 		{
 			this.goodPriceList = goodPriceList;
 		}
 
 		private String supplier;
-		public String GetSupplier()
+		public String getSupplier()
 		{
 			return this.supplier;
 		}
-		public void SetSupplier(String supplier)
+		public void setSupplier(String supplier)
 		{
 			this.supplier = supplier;
 		}
@@ -63,41 +66,41 @@ public class SyncGoodPrice {
 	
 	public static class GoodPriceInfo {
 		private String lefoxId;
-		public String GetLefoxId()
+		public String getLefoxId()
 		{
 			return this.lefoxId;
 		}
-		public void SetLefoxId(String lefoxId)
+		public void setLefoxId(String lefoxId)
 		{
 			this.lefoxId = lefoxId;
 		}
 
 		private String merchantID;
-		public String GetMerchantId()
+		public String getMerchantId()
 		{
 			return this.merchantID;
 		}
-		public void SetMerchantId(String merchantID)
+		public void setMerchantId(String merchantID)
 		{
 			this.merchantID = merchantID;
 		}
 
 		private String merchantName;
-		public String GetMerchantName()
+		public String getMerchantName()
 		{
 			return this.merchantName;
 		}
-		public void SetMerchantName(String merchantName)
+		public void setMerchantName(String merchantName)
 		{
 			this.merchantName = merchantName;
 		}
 
 		private String salePrice;
-		public String GetSalePrice()
+		public String getSalePrice()
 		{
 			return this.salePrice;
 		}
-		public void SetSalePrice(String salePrice)
+		public void setSalePrice(String salePrice)
 		{
 			this.salePrice = salePrice;
 		}
@@ -107,31 +110,31 @@ public class SyncGoodPrice {
 	
 	public static class GoodResp {
 		private String errInfo;
-		public String GetErrInfo()
+		public String getErrInfo()
 		{
 			return this.errInfo;
 		}
-		public void SetErrInfo(String errInfo)
+		public void setErrInfo(String errInfo)
 		{
 			this.errInfo = errInfo;
 		}
 
 		private String lefoxId;
-		public String GetLefoxId()
+		public String getLefoxId()
 		{
 			return this.lefoxId;
 		}
-		public void SetLefoxId(String lefoxId)
+		public void setLefoxId(String lefoxId)
 		{
 			this.lefoxId = lefoxId;
 		}
 
 		private boolean success;
-		public boolean GetSuccess()
+		public boolean getSuccess()
 		{
 			return this.success;
 		}
-		public void SetSuccess(boolean success)
+		public void setSuccess(boolean success)
 		{
 			this.success = success;
 		}
@@ -144,14 +147,16 @@ public class SyncGoodPrice {
      * @param: body SyncGoodPriceReq SyncGoodPriceReq 必填项
      * @return: *SyncGoodPriceResponse
     */
-    public SyncGoodPriceResponse SyncGoodPrice(String host, SyncGoodPriceReq body) throws Exception {
+    public SyncGoodPriceResponse SyncGoodPrice(String host, String authToken, SyncGoodPriceReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
+    	Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Authorization", authToken);
     	
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/good/price")), bodyString);
-
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/good/price")), headers, bodyString);
+        
         SyncGoodPriceResponse respEntity = new SyncGoodPriceResponse();
-		var data = JSON.parseArray(respStr, GoodResp.class);
+        var data = JSON.parseArray(respStr, GoodResp.class);
         respEntity.SetData(data);
         return respEntity;
     }

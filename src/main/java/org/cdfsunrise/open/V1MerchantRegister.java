@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SyncPriceGoods {
-    public static class SyncPriceGoodsResponse {
+public class V1MerchantRegister {
+    public static class V1MerchantRegisterResponse {
     	private String requestId;
     	public String GetRequestId() {
     	    return this.requestId;
@@ -42,34 +42,44 @@ public class SyncPriceGoods {
         }
     }
     
-	public static class SyncPriceGoodsReq {
-		private List<String> goodIds;
-		public List<String> getGoodIds()
+	public static class MerchantRegisterReq {
+		private int businessType;
+		public int getBusinessType()
 		{
-			return this.goodIds;
+			return this.businessType;
 		}
-		public void setGoodIds(List<String> goodIds)
+		public void setBusinessType(int businessType)
 		{
-			this.goodIds = goodIds;
+			this.businessType = businessType;
+		}
+
+		private String merchantName;
+		public String getMerchantName()
+		{
+			return this.merchantName;
+		}
+		public void setMerchantName(String merchantName)
+		{
+			this.merchantName = merchantName;
 		}
 	}
 	
 	
 
-    /*SyncPriceGoods
-     *Description: 需要同步商品价格集合
-     * @param: body SyncPriceGoodsReq SyncPriceGoodsReq 必填项
-     * @return: *SyncPriceGoodsResponse
+    /*V1MerchantRegister
+     *Description: 商户注册
+     * @param: body MerchantRegisterReq MerchantRegisterReq 必填项
+     * @return: *V1MerchantRegisterResponse
     */
-    public SyncPriceGoodsResponse SyncPriceGoods(String host, String authToken, SyncPriceGoodsReq body) throws Exception {
+    public V1MerchantRegisterResponse V1MerchantRegister(String host, String authToken, MerchantRegisterReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", authToken);
     	
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/price/goods")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/merchant/register")), headers, bodyString);
         
-        SyncPriceGoodsResponse respEntity = new SyncPriceGoodsResponse();
+        V1MerchantRegisterResponse respEntity = new V1MerchantRegisterResponse();
         respEntity.SetData(respStr);
         return respEntity;
     }
