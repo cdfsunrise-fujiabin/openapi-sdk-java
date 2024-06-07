@@ -6,7 +6,7 @@
 
     <groupId>org.cdfsunrise</groupId>
     <artifactId>openapi-sdk-java</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>V1.0.0</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
@@ -37,6 +37,18 @@
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
             <version>1.70</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.16.1</version>
         </dependency>
 
         <!-- sm国密依赖包 -->
