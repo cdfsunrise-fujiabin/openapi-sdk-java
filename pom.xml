@@ -6,7 +6,7 @@
 
     <groupId>org.cdfsunrise</groupId>
     <artifactId>openapi-sdk-java</artifactId>
-    <version>V1.0.0</version>
+    <version>V1.0.1</version>
 
     <properties>
         <maven.compiler.source>16</maven.compiler.source>

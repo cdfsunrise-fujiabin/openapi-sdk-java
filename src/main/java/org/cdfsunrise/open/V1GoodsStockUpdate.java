@@ -114,8 +114,8 @@ public class V1GoodsStockUpdate {
     public V1GoodsStockUpdateResponse V1GoodsStockUpdate(String host, String authToken, OpenDataReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", authToken);
-    	
+    	headers.put("Authorization", authToken);
+        
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/goodsStock/update")), headers, bodyString);
         

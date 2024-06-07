@@ -71,10 +71,9 @@ public class V2UserAuth {
      * @param: body OpenAuthReq OpenAuthReq 必填项
      * @return: *V2UserAuthResponse
     */
-    public V2UserAuthResponse V2UserAuth(String host, String authToken, OpenAuthReq body) throws Exception {
+    public V2UserAuthResponse V2UserAuth(String host, OpenAuthReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", authToken);
     	
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v2/user/auth")), headers, bodyString);
