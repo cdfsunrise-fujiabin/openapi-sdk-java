@@ -156,7 +156,7 @@ public class SyncGoodPrice {
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/good/price")), headers, bodyString);
         
         SyncGoodPriceResponse respEntity = new SyncGoodPriceResponse();
-        var data = JSON.parseArray(respStr, GoodResp.class);
+        List<GoodResp> data = JSON.parseArray(respStr, GoodResp.class);
         respEntity.SetData(data);
         return respEntity;
     }

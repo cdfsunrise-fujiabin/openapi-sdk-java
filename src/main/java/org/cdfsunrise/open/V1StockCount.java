@@ -143,7 +143,7 @@ public class V1StockCount {
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/stock/count")), headers, bodyString);
         
         V1StockCountResponse respEntity = new V1StockCountResponse();
-        var data = JSON.parseArray(respStr, OpenGoodsStock.class);
+        List<OpenGoodsStock> data = JSON.parseArray(respStr, OpenGoodsStock.class);
         respEntity.SetData(data);
         return respEntity;
     }

@@ -156,7 +156,7 @@ public class OpenGoodsUpdate {
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/open/goods/update")), headers, bodyString);
         
         OpenGoodsUpdateResponse respEntity = new OpenGoodsUpdateResponse();
-        var data = JSON.parseArray(respStr, GoodResp.class);
+        List<GoodResp> data = JSON.parseArray(respStr, GoodResp.class);
         respEntity.SetData(data);
         return respEntity;
     }
