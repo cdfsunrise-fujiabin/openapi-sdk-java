@@ -8,34 +8,34 @@ import java.util.Map;
 public class QueryGoodsStock {
     public static class QueryGoodsStockResponse {
     	private String requestId;
-    	public String GetRequestId() {
+    	public String getRequestId() {
     	    return this.requestId;
     	}
-    	public void SetRequestId(String requestId) {
+    	public void setRequestId(String requestId) {
     	    this.requestId = requestId;
     	}
 
     	private int code;
-    	public int GetCode() {
+    	public int getCode() {
             return this.code;
         }
-        public void SetCode(int code) {
+        public void setCode(int code) {
             this.code = code;
         }
 
     	private String message;
-    	public String GetMessage() {
+    	public String getMessage() {
             return this.message;
         }
-        public void SetMessage(String message) {
+        public void setMessage(String message) {
             this.message = message;
         }
 
     	private String data;
-    	public String GetData() {
+    	public String getData() {
             return this.data;
         }
-        public void SetData(String data) {
+        public void setData(String data) {
             this.data = data;
         }
     }
@@ -55,7 +55,7 @@ public class QueryGoodsStock {
         String respStr = httpHelper.Get(String.format("%s%s", host, String.format("/query/goods/stock?channelId=%s&lefoxId=%s", channelId, lefoxId)), headers);
         
         QueryGoodsStockResponse respEntity = new QueryGoodsStockResponse();
-        respEntity.SetData(respStr);
+        respEntity.setData(respStr);
         return respEntity;
     }
 }

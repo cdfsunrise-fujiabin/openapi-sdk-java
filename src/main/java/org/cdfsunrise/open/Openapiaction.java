@@ -10,34 +10,34 @@ import java.util.Map;
 public class Openapiaction {
     public static class OpenapiactionResponse {
     	private String requestId;
-    	public String GetRequestId() {
+    	public String getRequestId() {
     	    return this.requestId;
     	}
-    	public void SetRequestId(String requestId) {
+    	public void setRequestId(String requestId) {
     	    this.requestId = requestId;
     	}
 
     	private int code;
-    	public int GetCode() {
+    	public int getCode() {
             return this.code;
         }
-        public void SetCode(int code) {
+        public void setCode(int code) {
             this.code = code;
         }
 
     	private String message;
-    	public String GetMessage() {
+    	public String getMessage() {
             return this.message;
         }
-        public void SetMessage(String message) {
+        public void setMessage(String message) {
             this.message = message;
         }
 
     	private String data;
-    	public String GetData() {
+    	public String getData() {
             return this.data;
         }
-        public void SetData(String data) {
+        public void setData(String data) {
             this.data = data;
         }
     }
@@ -105,13 +105,13 @@ public class Openapiaction {
     public OpenapiactionResponse Openapiaction(String host, String authToken, String action, YZFOrderNotifyRequest body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", authToken);
-    	
+    	headers.put("Authorization", authToken);
+        
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/openapi/%v", action)), headers, bodyString);
         
         OpenapiactionResponse respEntity = new OpenapiactionResponse();
-        respEntity.SetData(respStr);
+        respEntity.setData(respStr);
         return respEntity;
     }
 }

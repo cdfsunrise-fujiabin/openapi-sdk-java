@@ -10,34 +10,34 @@ import java.util.Map;
 public class OpenGoodsUpdate {
     public static class OpenGoodsUpdateResponse {
     	private String requestId;
-    	public String GetRequestId() {
+    	public String getRequestId() {
     	    return this.requestId;
     	}
-    	public void SetRequestId(String requestId) {
+    	public void setRequestId(String requestId) {
     	    this.requestId = requestId;
     	}
 
     	private int code;
-    	public int GetCode() {
+    	public int getCode() {
             return this.code;
         }
-        public void SetCode(int code) {
+        public void setCode(int code) {
             this.code = code;
         }
 
     	private String message;
-    	public String GetMessage() {
+    	public String getMessage() {
             return this.message;
         }
-        public void SetMessage(String message) {
+        public void setMessage(String message) {
             this.message = message;
         }
 
     	private List<GoodResp> data;
-    	public List<GoodResp> GetData() {
+    	public List<GoodResp> getData() {
             return this.data;
         }
-        public void SetData(List<GoodResp> data) {
+        public void setData(List<GoodResp> data) {
             this.data = data;
         }
     }
@@ -150,14 +150,14 @@ public class OpenGoodsUpdate {
     public OpenGoodsUpdateResponse OpenGoodsUpdate(String host, String authToken, OpenGoodUpdateReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", authToken);
-    	
+    	headers.put("Authorization", authToken);
+        
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/open/goods/update")), headers, bodyString);
         
         OpenGoodsUpdateResponse respEntity = new OpenGoodsUpdateResponse();
         List<GoodResp> data = JSON.parseArray(respStr, GoodResp.class);
-        respEntity.SetData(data);
+        respEntity.setData(data);
         return respEntity;
     }
 }

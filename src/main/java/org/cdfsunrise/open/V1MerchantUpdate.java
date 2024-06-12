@@ -10,34 +10,34 @@ import java.util.Map;
 public class V1MerchantUpdate {
     public static class V1MerchantUpdateResponse {
     	private String requestId;
-    	public String GetRequestId() {
+    	public String getRequestId() {
     	    return this.requestId;
     	}
-    	public void SetRequestId(String requestId) {
+    	public void setRequestId(String requestId) {
     	    this.requestId = requestId;
     	}
 
     	private int code;
-    	public int GetCode() {
+    	public int getCode() {
             return this.code;
         }
-        public void SetCode(int code) {
+        public void setCode(int code) {
             this.code = code;
         }
 
     	private String message;
-    	public String GetMessage() {
+    	public String getMessage() {
             return this.message;
         }
-        public void SetMessage(String message) {
+        public void setMessage(String message) {
             this.message = message;
         }
 
     	private String data;
-    	public String GetData() {
+    	public String getData() {
             return this.data;
         }
-        public void SetData(String data) {
+        public void setData(String data) {
             this.data = data;
         }
     }
@@ -164,13 +164,13 @@ public class V1MerchantUpdate {
     public V1MerchantUpdateResponse V1MerchantUpdate(String host, String authToken, MerchantUpdateReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", authToken);
-    	
+    	headers.put("Authorization", authToken);
+        
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/merchant/update")), headers, bodyString);
         
         V1MerchantUpdateResponse respEntity = new V1MerchantUpdateResponse();
-        respEntity.SetData(respStr);
+        respEntity.setData(respStr);
         return respEntity;
     }
 }
