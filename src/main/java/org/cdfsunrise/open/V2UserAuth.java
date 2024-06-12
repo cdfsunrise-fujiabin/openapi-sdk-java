@@ -34,7 +34,7 @@ public class V2UserAuth {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -74,12 +74,10 @@ public class V2UserAuth {
     public V2UserAuthResponse V2UserAuth(String host, OpenAuthReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
-
+    	
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v2/user/auth")), headers, bodyString);
         
-        V2UserAuthResponse respEntity = new V2UserAuthResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, V2UserAuthResponse.class);
     }
 }

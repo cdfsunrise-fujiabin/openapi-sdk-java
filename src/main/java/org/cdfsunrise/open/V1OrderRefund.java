@@ -34,7 +34,7 @@ public class V1OrderRefund {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -119,8 +119,6 @@ public class V1OrderRefund {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/order/refund")), headers, bodyString);
         
-        V1OrderRefundResponse respEntity = new V1OrderRefundResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, V1OrderRefundResponse.class);
     }
 }

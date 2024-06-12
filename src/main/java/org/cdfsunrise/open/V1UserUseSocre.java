@@ -34,7 +34,7 @@ public class V1UserUseSocre {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -119,8 +119,6 @@ public class V1UserUseSocre {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/user/useSocre")), headers, bodyString);
         
-        V1UserUseSocreResponse respEntity = new V1UserUseSocreResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, V1UserUseSocreResponse.class);
     }
 }

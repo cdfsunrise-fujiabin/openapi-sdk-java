@@ -34,7 +34,7 @@ public class SyncGoodPrice {
         }
 
     	private List<GoodResp> data;
-    	public List<GoodResp> getData() {
+        public List<GoodResp> getData() {
             return this.data;
         }
         public void setData(List<GoodResp> data) {
@@ -155,9 +155,6 @@ public class SyncGoodPrice {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/good/price")), headers, bodyString);
         
-        SyncGoodPriceResponse respEntity = new SyncGoodPriceResponse();
-        List<GoodResp> data = JSON.parseArray(respStr, GoodResp.class);
-        respEntity.setData(data);
-        return respEntity;
+        return JSON.parseObject(respStr, SyncGoodPriceResponse.class);
     }
 }

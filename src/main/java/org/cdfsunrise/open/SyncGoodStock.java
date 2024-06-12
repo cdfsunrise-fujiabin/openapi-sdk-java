@@ -34,7 +34,7 @@ public class SyncGoodStock {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -142,8 +142,6 @@ public class SyncGoodStock {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/sync/good/stock")), headers, bodyString);
         
-        SyncGoodStockResponse respEntity = new SyncGoodStockResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, SyncGoodStockResponse.class);
     }
 }

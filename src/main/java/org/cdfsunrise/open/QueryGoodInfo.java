@@ -1,6 +1,8 @@
 package org.cdfsunrise.open;
 
+import com.alibaba.fastjson.JSON;
 import org.cdfsunrise.OkHttpHelper;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class QueryGoodInfo {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -54,8 +56,6 @@ public class QueryGoodInfo {
         
         String respStr = httpHelper.Get(String.format("%s%s", host, String.format("/query/good/info?channelId=%s&lefoxId=%s", channelId, lefoxId)), headers);
         
-        QueryGoodInfoResponse respEntity = new QueryGoodInfoResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, QueryGoodInfoResponse.class);
     }
 }

@@ -1,5 +1,6 @@
 package org.cdfsunrise.open;
 
+import com.alibaba.fastjson.JSON;
 import org.cdfsunrise.OkHttpHelper;
 import java.util.HashMap;
 import java.util.List;
@@ -53,9 +54,7 @@ public class QueryGoodsStock {
         headers.put("Authorization", authToken);
     	
         String respStr = httpHelper.Get(String.format("%s%s", host, String.format("/query/goods/stock?channelId=%s&lefoxId=%s", channelId, lefoxId)), headers);
-        
-        QueryGoodsStockResponse respEntity = new QueryGoodsStockResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+
+        return JSON.parseObject(respStr, QueryGoodsStockResponse.class);
     }
 }

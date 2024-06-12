@@ -34,7 +34,7 @@ public class Openapiaction {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -110,8 +110,6 @@ public class Openapiaction {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/openapi/%v", action)), headers, bodyString);
         
-        OpenapiactionResponse respEntity = new OpenapiactionResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, OpenapiactionResponse.class);
     }
 }

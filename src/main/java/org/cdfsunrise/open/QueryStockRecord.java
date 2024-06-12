@@ -1,6 +1,8 @@
 package org.cdfsunrise.open;
 
+import com.alibaba.fastjson.JSON;
 import org.cdfsunrise.OkHttpHelper;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class QueryStockRecord {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -54,8 +56,6 @@ public class QueryStockRecord {
         
         String respStr = httpHelper.Get(String.format("%s%s", host, String.format("/query/stock/record?channelId=%s&requestNo=%s", channelId, requestNo)), headers);
         
-        QueryStockRecordResponse respEntity = new QueryStockRecordResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, QueryStockRecordResponse.class);
     }
 }

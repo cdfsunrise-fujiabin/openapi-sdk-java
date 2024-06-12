@@ -34,7 +34,7 @@ public class CdfUserInfo {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -89,8 +89,6 @@ public class CdfUserInfo {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/cdf/userInfo")), headers, bodyString);
         
-        CdfUserInfoResponse respEntity = new CdfUserInfoResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, CdfUserInfoResponse.class);
     }
 }

@@ -34,7 +34,7 @@ public class OpenGoodsUpdate {
         }
 
     	private List<GoodResp> data;
-    	public List<GoodResp> getData() {
+        public List<GoodResp> getData() {
             return this.data;
         }
         public void setData(List<GoodResp> data) {
@@ -155,9 +155,6 @@ public class OpenGoodsUpdate {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/open/goods/update")), headers, bodyString);
         
-        OpenGoodsUpdateResponse respEntity = new OpenGoodsUpdateResponse();
-        List<GoodResp> data = JSON.parseArray(respStr, GoodResp.class);
-        respEntity.setData(data);
-        return respEntity;
+        return JSON.parseObject(respStr, OpenGoodsUpdateResponse.class);
     }
 }

@@ -34,7 +34,7 @@ public class V1MerchantUpdate {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -169,8 +169,6 @@ public class V1MerchantUpdate {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/merchant/update")), headers, bodyString);
         
-        V1MerchantUpdateResponse respEntity = new V1MerchantUpdateResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, V1MerchantUpdateResponse.class);
     }
 }

@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class V1UserAccountInfo {
-    public static class V1UserAccountInfoResponse {
+public class V1QueryGoodsBrand {
+    public static class V1QueryGoodsBrandResponse {
     	private String requestId;
     	public String getRequestId() {
     	    return this.requestId;
@@ -33,11 +33,11 @@ public class V1UserAccountInfo {
             this.message = message;
         }
 
-    	private String data;
-        public String getData() {
+    	private List<GoodsBrand> data;
+        public List<GoodsBrand> getData() {
             return this.data;
         }
-        public void setData(String data) {
+        public void setData(List<GoodsBrand> data) {
             this.data = data;
         }
     }
@@ -105,20 +105,53 @@ public class V1UserAccountInfo {
 	}
 	
 	
+	public static class GoodsBrand {
+		private String brandId;
+		public String getBrandId()
+		{
+			return this.brandId;
+		}
+		public void setBrandId(String brandId)
+		{
+			this.brandId = brandId;
+		}
 
-    /*V1UserAccountInfo
-     *Description: 解密qrCode获取用户信息
+		private String brandNameCN;
+		public String getBrandNameCn()
+		{
+			return this.brandNameCN;
+		}
+		public void setBrandNameCn(String brandNameCN)
+		{
+			this.brandNameCN = brandNameCN;
+		}
+
+		private String brandNameEn;
+		public String getBrandNameEn()
+		{
+			return this.brandNameEn;
+		}
+		public void setBrandNameEn(String brandNameEn)
+		{
+			this.brandNameEn = brandNameEn;
+		}
+	}
+	
+	
+
+    /*V1QueryGoodsBrand
+     *Description: 开放平台商品品牌查询
      * @param: body OpenDataReq OpenDataReq 必填项
-     * @return: *V1UserAccountInfoResponse
+     * @return: *V1QueryGoodsBrandResponse
     */
-    public V1UserAccountInfoResponse V1UserAccountInfo(String host, String authToken, OpenDataReq body) throws Exception {
+    public V1QueryGoodsBrandResponse V1QueryGoodsBrand(String host, String authToken, OpenDataReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
     	headers.put("Authorization", authToken);
         
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/user/accountInfo")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/query/goodsBrand")), headers, bodyString);
         
-        return JSON.parseObject(respStr, V1UserAccountInfoResponse.class);
+        return JSON.parseObject(respStr, V1QueryGoodsBrandResponse.class);
     }
 }

@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class V1UserAccountInfo {
-    public static class V1UserAccountInfoResponse {
+public class V1GoodsStatusUpdate {
+    public static class V1GoodsStatusUpdateResponse {
     	private String requestId;
     	public String getRequestId() {
     	    return this.requestId;
@@ -106,19 +106,19 @@ public class V1UserAccountInfo {
 	
 	
 
-    /*V1UserAccountInfo
-     *Description: 解密qrCode获取用户信息
+    /*V1GoodsStatusUpdate
+     *Description: 开放平台更新商品上下架
      * @param: body OpenDataReq OpenDataReq 必填项
-     * @return: *V1UserAccountInfoResponse
+     * @return: *V1GoodsStatusUpdateResponse
     */
-    public V1UserAccountInfoResponse V1UserAccountInfo(String host, String authToken, OpenDataReq body) throws Exception {
+    public V1GoodsStatusUpdateResponse V1GoodsStatusUpdate(String host, String authToken, OpenDataReq body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
     	headers.put("Authorization", authToken);
         
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/user/accountInfo")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/goodsStatus/update")), headers, bodyString);
         
-        return JSON.parseObject(respStr, V1UserAccountInfoResponse.class);
+        return JSON.parseObject(respStr, V1GoodsStatusUpdateResponse.class);
     }
 }

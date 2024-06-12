@@ -34,7 +34,7 @@ public class V1AlipayNotify {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -139,8 +139,6 @@ public class V1AlipayNotify {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/alipay/notify")), headers, bodyString);
         
-        V1AlipayNotifyResponse respEntity = new V1AlipayNotifyResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, V1AlipayNotifyResponse.class);
     }
 }

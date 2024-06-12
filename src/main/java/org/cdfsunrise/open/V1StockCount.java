@@ -34,7 +34,7 @@ public class V1StockCount {
         }
 
     	private List<OpenGoodsStock> data;
-    	public List<OpenGoodsStock> getData() {
+        public List<OpenGoodsStock> getData() {
             return this.data;
         }
         public void setData(List<OpenGoodsStock> data) {
@@ -142,9 +142,6 @@ public class V1StockCount {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/stock/count")), headers, bodyString);
         
-        V1StockCountResponse respEntity = new V1StockCountResponse();
-        List<OpenGoodsStock> data = JSON.parseArray(respStr, OpenGoodsStock.class);
-        respEntity.setData(data);
-        return respEntity;
+        return JSON.parseObject(respStr, V1StockCountResponse.class);
     }
 }

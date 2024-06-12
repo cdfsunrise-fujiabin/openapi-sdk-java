@@ -34,7 +34,7 @@ public class V1QueryGoodsStock {
         }
 
     	private String data;
-    	public String getData() {
+        public String getData() {
             return this.data;
         }
         public void setData(String data) {
@@ -119,8 +119,6 @@ public class V1QueryGoodsStock {
     	String bodyString = JSON.toJSONString(body);
         String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/query/goodsStock")), headers, bodyString);
         
-        V1QueryGoodsStockResponse respEntity = new V1QueryGoodsStockResponse();
-        respEntity.setData(respStr);
-        return respEntity;
+        return JSON.parseObject(respStr, V1QueryGoodsStockResponse.class);
     }
 }
