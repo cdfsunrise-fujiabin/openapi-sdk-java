@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class V1QueryGoodsBrand {
-    public static class V1QueryGoodsBrandResponse {
+public class V1MallDeliveryChange {
+    public static class V1MallDeliveryChangeResponse {
     	private String requestId;
     	public String getRequestId() {
     	    return this.requestId;
@@ -42,7 +42,7 @@ public class V1QueryGoodsBrand {
         }
     }
     
-	public static class OpenDataReq {
+	public static class BaseRequest {
 		private String appid;
 		public String getAppid()
 		{
@@ -106,19 +106,19 @@ public class V1QueryGoodsBrand {
 	
 	
 
-    /*V1QueryGoodsBrand
-     *Description: 开放平台商品品牌查询
-     * @param: body OpenDataReq OpenDataReq 必填项
-     * @return: *V1QueryGoodsBrandResponse
+    /*V1MallDeliveryChange
+     *Description: 【商户入驻】- 收货地址变更申请回执
+     * @param: body BaseRequest BaseRequest 必填项
+     * @return: *V1MallDeliveryChangeResponse
     */
-    public V1QueryGoodsBrandResponse V1QueryGoodsBrand(String host, String authToken, OpenDataReq body) throws Exception {
+    public V1MallDeliveryChangeResponse V1MallDeliveryChange(String host, String authToken, BaseRequest body) throws Exception {
     	OkHttpHelper httpHelper = new OkHttpHelper();
     	Map<String, String> headers = new HashMap<String, String>();
     	headers.put("Authorization", authToken);
         
     	String bodyString = JSON.toJSONString(body);
-        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/query/goodsBrand")), headers, bodyString);
+        String respStr = httpHelper.Post(String.format("%s%s", host, String.format("/v1/mall/delivery/change")), headers, bodyString);
         
-        return JSON.parseObject(respStr, V1QueryGoodsBrandResponse.class);
+        return JSON.parseObject(respStr, V1MallDeliveryChangeResponse.class);
     }
 }
