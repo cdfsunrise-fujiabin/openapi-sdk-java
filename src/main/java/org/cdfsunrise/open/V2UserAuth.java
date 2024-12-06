@@ -33,15 +33,49 @@ public class V2UserAuth {
             this.message = message;
         }
 
-    	private String data;
-        public String getData() {
+    	private OpenAuthResponseData data;
+        public OpenAuthResponseData getData() {
             return this.data;
         }
-        public void setData(String data) {
+        public void setData(OpenAuthResponseData data) {
             this.data = data;
         }
     }
-    
+
+	public static class OpenAuthResponseData {
+		private OpenAuthDetail auth;
+		public OpenAuthDetail getAuth()
+		{
+			return this.auth;
+		}
+		public void setAuth(OpenAuthDetail auth)
+		{
+			this.auth = auth;
+		}
+	}
+
+	public static class OpenAuthDetail {
+		private String accessToken;
+		public String getAccessToken()
+		{
+			return this.accessToken;
+		}
+		public void setAccessToken(String accessToken)
+		{
+			this.accessToken = accessToken;
+		}
+
+		private Integer expiresIn;
+		public Integer getExpiresIn()
+		{
+			return this.expiresIn;
+		}
+		public void setExpiresIn(Integer expiresIn)
+		{
+			this.expiresIn = expiresIn;
+		}
+	}
+
 	public static class OpenAuthReq {
 		private String appid;
 		public String getAppid()
